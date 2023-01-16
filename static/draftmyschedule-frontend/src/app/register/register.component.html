@@ -1,0 +1,8 @@
+<h1>Draft my schedule</h1>
+<p>Register:</p>
+<input id="email_input" placeholder="Email" [(ngModel)]="email"><br>
+<input id="name_input" placeholder="Name" [(ngModel)]="name"><br>
+<input class="password_input" placeholder="Password" type="password" [(ngModel)]="password"><br>
+<input class="password_input" placeholder="Confirm Password" type="password" [(ngModel)]="confirm_password"><br>
+<button id="register_btn" (click)="register()">Register</button>
+<button id="back_btn" (click)="back()">Go back to login.</button>

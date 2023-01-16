@@ -1,0 +1,15 @@
+<div id="wrap">
+  <h1>Draft my schedule</h1>
+  <p>This website is made as a project for SE3316. It aims to emulate a scheduler
+      in the context of a web application using technologies such as REST, NodeJS,
+    MongoDB, and Angular.</p>
+  <input id="email_input" placeholder="Email" [(ngModel)]="email">
+  <input id="password_input" placeholder="Password" type="password" [(ngModel)]="password"><br>
+  <button id="login_btn" (click)="login()">Login</button>
+  <button id="register_btn" (click)="register()">Register</button>
+  <button (click)="changepass()">Change password</button>
+  <br><br><br><br>
+  <button (click)="privatePolicy()">Private policy</button><br>
+  <button (click)="dmcaPolicy()">DMCA policy</button><br>
+  <button (click)="auPolicy()">Acceptable Use Policy (AUP)</button>
+</div>

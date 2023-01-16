@@ -1,0 +1,70 @@
+<div id="wrap">
+  <h1>Draft my schedule</h1>
+  <h3>Search for a course</h3>
+  <label>Subject Code:</label>
+  <input id="subjectcode_input" placeholder="Subject code" [(ngModel)]="subject_code"><br>
+  <label>Course Code:</label>
+  <input id="coursecode_input" placeholder="Course code" [(ngModel)]="course_code"><br>
+  <button id="search_btn" (click)="search()">Search</button>
+
+  <div *ngIf="timetableEntries">
+  <div *ngFor = "let entry of timetableEntries">
+    <span class="entry_sch">{{ entry.subject }}</span>
+    <span class="entry_sch">{{ entry.course_code }}</span>
+    <span class="entry_sch">{{ entry.className }}</span>
+    <span class="entry_sch">{{ entry.component_info[0].class_section }}</span>
+    <span class="entry_sch">{{ entry.component_info[0].ssr_component }}</span>
+    <span class="entry_sch"*ngIf="entry.expanded">{{ entry.component_info[0].start_time }} - {{ entry.component_info[0].end_time }}</span>
+    <span class="entry_sch"*ngIf="entry.expanded">{{ entry.component_info[0].days }}</span>
+    <span class="entry_sch"*ngIf="entry.expanded">{{ entry.component_info[0].facility_ID }}</span>
+    <button (click)="expandItem(entry)" *ngIf="entry.expanded==false">Expand</button>
+    <button (click)="collapseItem(entry)" *ngIf="entry.expanded==true">Collapse</button>
+    <button (click)="addToSch(entry)">Add</button>
+
+    <!-- Displays reviews for a specific course, not the other courses. -->
+    <div class="reviews"*ngIf="entry.expanded">
+      <h4 *ngIf="entry.expanded">Reviews:</h4>
+      <div *ngFor = "let review of reviews">
+        <div *ngIf="review.subject===entry.subject&&review.course_code===entry.course_code">
+          <p>
+            {{review.name}}: <span class="rating" *ngFor="let item of arrayOne(review.rating);">⭐</span>
+            <button *ngIf="admin" (click)="hideReview(review, true)">Hide</button>
+            <br>
+            <span *ngIf="review.text"> {{ review.text }}</span>
+          </p>
+        </div>
+      </div>
+      <p>Post review:</p>
+      <select id="reviews" [(ngModel)]="reviewrating">
+        <option value=1>1</option>
+        <option value=2>2</option>
+        <option value=3>3</option>
+        <option value=4>4</option>
+        <option value=5>5</option>
+      </select>
+      <input id="review_input" placeholder="Review text (optional)" [(ngModel)]="reviewtext">
+      <button id="submitreview_btn" (click)="submitReview(entry.subject, entry.course_code)">Submit</button>
+    </div>
+
+  </div>
+  </div>
+
+  <div id="admin" *ngIf="admin">
+    <h3 style="color:red">Admin Panel</h3>
+    <input placeholder="Email" [(ngModel)]="admin_email"><br>
+    <button (click)="adminify()">Promote to admin</button>
+    <button (click)="deactivateUser()">Deactivate</button>
+    <button (click)="activateUser()">Activate</button><br>
+    <button (click)="getHiddenReviews()">Get hidden reviews.</button>
+    <div *ngFor = "let review of hiddenrevs">
+      <p>
+        {{review.name}}: <span class="rating" *ngFor="let item of arrayOne(review.rating);">⭐</span>
+        <button *ngIf="admin" (click)="hideReview(review, false)">Unhide</button>
+        <br>
+        <span *ngIf="review.text"> {{ review.text }}</span>
+      </p>
+    </div>
+  </div>
+
+  <app-schedule></app-schedule>
+</div>

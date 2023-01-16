@@ -1,0 +1,69 @@
+<div id="wrap">
+  <h3>Schedules</h3>
+  <label>Schedule name:</label>
+  <input id="schedulename_input" placeholder="Schedule name" [(ngModel)]="schname">
+  <button id="public_btn" (click)="togglePublic()" *ngIf="public; else privateContent">Public</button>
+  <ng-template #privateContent><button id="private_btn" (click)="togglePublic()">Private</button></ng-template>
+  <button id="edit_btn" (click)="editMode()">Edit</button>
+  <br>
+  <div *ngIf="editing">
+    <label>New schedule name:</label>
+    <input id="newschedulename_input" placeholder="new Schedule name" [(ngModel)]="newschname">
+  </div>
+
+  <label>Description (optional):</label>
+  <input id="description_input" placeholder="Description" [(ngModel)]="description">
+  <button id="submitedit_btn" *ngIf="editing" (click)="submitEdit()">Submit edit</button><br>
+
+  <button id="search_btn" (click)="search()">Search</button>
+  <button id="create_btn" (click)="create()">Create</button>
+  <button class="delete_btn" (click)="confirmDelete=true" *ngIf="confirmDelete===false">Delete</button>
+  <button class="delete_btn" (click)="delete()" *ngIf="confirmDelete">You sure?</button>
+  <button id="searchpublic_btn" (click)="searchPublicSchs()">Public schedules</button>
+  <button (click)="getMySchs()">Get my schedules</button>
+
+  <div *ngFor="let sch of my_schs">
+    <span><b>{{sch.name}}</b>: {{sch.sch_name}} has {{sch.numOfCourses}} courses ({{sch.last_edited}})</span>
+    <button (click)="searchMySch(sch.sch_name)">Open</button>
+    <p>'{{sch.description}}'</p>
+  </div>
+  <div *ngFor="let sch of public_schs">
+    <span><b>{{sch.name}}</b>: {{sch.sch_name}} has {{sch.numOfCourses}} courses ({{sch.last_edited}})</span>
+    <button (click)="getPublicSch(sch)">Open</button>
+    <p>'{{sch.description}}'</p>
+  </div>
+
+  <hr>
+  <p *ngIf="description_res">
+    {{description_res}}
+  </p>
+  <div *ngIf="entries">
+    <div *ngFor = "let entry of entries">
+      <span class="entry_sch">{{ entry.subject }}</span>
+      <span class="entry_sch">{{ entry.course_code }}</span>
+      <span class="entry_sch">{{ entry.className }}</span>
+      <span class="entry_sch">{{ entry.component_info[0].class_section }}</span>
+      <span class="entry_sch">{{ entry.component_info[0].ssr_component }}</span>
+      <span class="entry_sch" *ngIf="entry.expanded">{{ entry.component_info[0].start_time }} - {{ entry.component_info[0].end_time }}</span>
+      <span class="entry_sch" *ngIf="entry.expanded">{{ entry.component_info[0].days }}</span>
+      <span class="entry_sch" *ngIf="entry.expanded">{{ entry.component_info[0].facility_ID }}</span>
+      <button (click)="expandItem(entry)" *ngIf="entry.expanded==false">Expand</button>
+      <button (click)="collapseItem(entry)" *ngIf="entry.expanded==true">Collapse</button>
+      <button (click)="remove(entry)" *ngIf="entry.expanded">Remove</button>
+
+      <!-- Displays reviews for a specific course, not the other courses. -->
+      <div class="reviews"*ngIf="entry.expanded">
+        <h4>Reviews:</h4>
+        <div *ngFor = "let review of reviews">
+          <div *ngIf="review.subject===entry.subject&&review.course_code===entry.course_code">
+            <p>
+              {{review.name}}: <span class="rating" *ngFor="let item of arrayOne(review.rating);">⭐</span><br>
+              <span *ngIf="review.text"> {{ review.text }}</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br><br><br>

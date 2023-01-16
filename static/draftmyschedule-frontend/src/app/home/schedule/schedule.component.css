@@ -1,0 +1,37 @@
+button {
+  background-color: #d900ff;
+  color: white;
+  border:none;
+  border-radius: 5px;
+  font-weight: bold;
+  padding: 4px;
+  margin: 4px;
+}
+
+h1 {
+  color: white;
+  background-color: #9e00ba;
+  text-align: center;
+  padding: 10px;
+}
+
+input {
+  border:1px solid #9e00ba;
+  border-radius: 4px;
+}
+
+.entry_sch {
+  margin: 10px 0 0 0;
+  min-width:100px;
+  display: inline-block;
+  border: 1px solid black;
+  padding: 5px;
+}
+
+.reviews {
+  width: 700px;
+  background-color: #ebebeb;
+  border-radius: 10px;
+  padding: 5px;
+  margin: 5px;
+}

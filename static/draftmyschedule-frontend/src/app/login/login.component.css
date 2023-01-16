@@ -1,0 +1,27 @@
+#wrap {
+  margin: 0 auto;
+  width: 300px;
+}
+
+button {
+  background-color: #d900ff;
+  color: white;
+  border:none;
+  border-radius: 5px;
+  font-weight: bold;
+  padding: 4px;
+  margin: 2px;
+}
+
+h1 {
+  color: white;
+  background-color: #9e00ba;
+  text-align: center;
+  padding: 10px;
+}
+
+input {
+  border:1px solid #9e00ba;
+  border-radius: 4px;
+  margin: 3px;
+}
